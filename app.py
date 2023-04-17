@@ -22,143 +22,90 @@ formula3 = '$\\displaystyle  \\frac{dC_s}{dt}= \\frac{F_e}{V}(C_{sm}-C_s)- \\fra
 formula4 = '$\\displaystyle  \\frac{dC_e}{dt}= \\frac{Y_{e/s}}{Y_{x/s}} \mu C_x - \\frac{F_e}{V} C_e$'
 
 
-
-
-########################################################### Inicio Modo Antigo
-"""
 app.layout = html.Div(
     [
-        html.Header([html.H1('Fermentação Alcoólica'), html.H2('Batelada Alimentada')], id='cabeçalho'),
-        html.Div([html.H3('Equações', id='exercicio'),
-                  html.Div(dcc.Markdown(texto,  mathjax=True)),
-                  html.Div([
-                      html.Div([
-                          html.Div(dcc.Markdown(formula1,  mathjax=True)),
-                          html.Div(dcc.Markdown(formula2,  mathjax=True)),
-                          html.Div(dcc.Markdown(formula3,  mathjax=True)),
-                          html.Div(dcc.Markdown(formula4,  mathjax=True))
-                      ]),
-                      html.Div(html.Figure(html.Img(src= '/assets/fig1.png', id='fig_batelada')), id= 'ajuste_fig')
-                  ], id='formula_figura')
-                  ], className='container'),
-        html.Div([
-            html.Div([
-                html.H4('Digite o valor final de t:', className='texto_caixa'),
-                html.Div(dcc.Input(id='tempo', value=50, type='number'), className='ent')
-            ], className='entrada'),
-            html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $C_{x_0}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Cx0', value=30, type='number'), className='ent')
-            ], className='entrada'),
-            html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $C_{s_0}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Cs0', value=0, type='number'), className='ent')
-            ], className='entrada'),
-            html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $C_{p_0}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Cp0', value=0, type='number'), className='ent')
-            ], className='entrada'),
-            html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $V_0$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='V0', value=0.6, type='number'), className='ent')
-            ], className='entrada'),
-            html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $Y_{x/s}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Yxs', value=0.0419, type='number'), className='ent')
-            ], className='entrada'),
-            html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $Y_{e/s}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Yes', value=0.444, type='number'), className='ent')
-            ], className='entrada'),
-            html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $\mu_{max}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Mimax', value=0.157076483470194, type='number'), className='ent')
-            ], className='entrada'),
-            html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $K_s$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Ks', value=14.35, type='number'), className='ent')
-            ], className='entrada'),
-            html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $K_{is}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Kis', value=170.35, type='number'), className='ent')
-            ], className='entrada'),
-            html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $Ce_{max}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Cemax', value=138.45, type='number'), className='ent')
-            ], className='entrada'),
-        ], className='container2'),
-        html.Div(
-            dcc.Tabs([dcc.Tab(label='Todos os Gráficos', value='tab-1'), dcc.Tab(label='Células', value='tab-2'),
-                      dcc.Tab(label='Substrato', value='tab-3'), dcc.Tab(label='Produto', value='tab-4'), dcc.Tab(label='Volume', value='tab-5')], id='tabs', value='tab-1', className='container')
-        ),
-        html.Div(dcc.Graph(id='fig', style={
-                 'margin': '10px', 'padding': '10px'}), id='figura')
-    ]
-
-) """
-##################################################
-
-app.layout = html.Div(
-    [
-        html.Header([html.H1('Fermentação Alcoólica'), html.H2('Batelada Alimentada')], id='cabeçalho'),
+        html.Header([html.H1('Fermentação Alcoólica'), html.H2(
+            'Batelada Alimentada')], id='cabeçalho'),
         html.Div([html.H3('Apresentação', id='exercicio'),
                   dcc.Tabs([
-                      dcc.Tab(html.Div(dcc.Markdown(texto,  mathjax=True),id='resumo'), label='Resumo'),
+                      dcc.Tab(html.Div(dcc.Markdown(texto,  mathjax=True),
+                              id='resumo'), label='Resumo'),
                       dcc.Tab(
                           html.Div([
                               dcc.Markdown(formula1,  mathjax=True),
                               dcc.Markdown(formula2,  mathjax=True),
                               dcc.Markdown(formula3,  mathjax=True),
                               dcc.Markdown(formula4,  mathjax=True)
-                      ], id= 'equa_dif')
-                      , label= 'Equações Diferenciais'),
-                      dcc.Tab(html.Div(html.Figure(html.Img(src= '/assets/fig1.png', id='fig_batelada')), id= 'ajuste_fig') ,label= 'Figura')
+                          ], id='equa_dif'), label='Equações Diferenciais'),
+                      dcc.Tab(html.Div(html.Figure(
+                          html.Img(src='fig1.png', alt= 'Esquema Batelada Alimentada',id='fig_batelada')), id='ajuste_fig'), label='Figura')
                   ])
                   ], className='container'),
         html.Div([
             html.Div([
                 html.H4('Digite o valor final de t:', className='texto_caixa'),
-                html.Div(dcc.Input(id='tempo', value=50, type='number'), className='ent')
+                html.Div(dcc.Input(id='tempo', value=50,
+                         type='number'), className='ent')
             ], className='entrada'),
             html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $C_{x_0}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Cx0', value=30, type='number'), className='ent')
+                html.H4(dcc.Markdown(
+                    'Digite o valor de $C_{x_0}$:', mathjax=True), className='texto_caixa'),
+                html.Div(dcc.Input(id='Cx0', value=30,
+                         type='number'), className='ent')
             ], className='entrada'),
             html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $C_{s_0}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Cs0', value=0, type='number'), className='ent')
+                html.H4(dcc.Markdown(
+                    'Digite o valor de $C_{s_0}$:', mathjax=True), className='texto_caixa'),
+                html.Div(dcc.Input(id='Cs0', value=0,
+                         type='number'), className='ent')
             ], className='entrada'),
             html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $C_{p_0}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Cp0', value=0, type='number'), className='ent')
+                html.H4(dcc.Markdown(
+                    'Digite o valor de $C_{p_0}$:', mathjax=True), className='texto_caixa'),
+                html.Div(dcc.Input(id='Cp0', value=0,
+                         type='number'), className='ent')
             ], className='entrada'),
             html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $V_0$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='V0', value=0.6, type='number'), className='ent')
+                html.H4(dcc.Markdown('Digite o valor de $V_0$:',
+                        mathjax=True), className='texto_caixa'),
+                html.Div(dcc.Input(id='V0', value=0.6,
+                         type='number'), className='ent')
             ], className='entrada'),
             html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $Y_{x/s}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Yxs', value=0.0419, type='number'), className='ent')
+                html.H4(dcc.Markdown(
+                    'Digite o valor de $Y_{x/s}$:', mathjax=True), className='texto_caixa'),
+                html.Div(dcc.Input(id='Yxs', value=0.0419,
+                         type='number'), className='ent')
             ], className='entrada'),
             html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $Y_{e/s}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Yes', value=0.444, type='number'), className='ent')
+                html.H4(dcc.Markdown(
+                    'Digite o valor de $Y_{e/s}$:', mathjax=True), className='texto_caixa'),
+                html.Div(dcc.Input(id='Yes', value=0.444,
+                         type='number'), className='ent')
             ], className='entrada'),
             html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $\mu_{max}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Mimax', value=0.157076483470194, type='number'), className='ent')
+                html.H4(dcc.Markdown(
+                    'Digite o valor de $\mu_{max}$:', mathjax=True), className='texto_caixa'),
+                html.Div(dcc.Input(id='Mimax', value=0.157076483470194,
+                         type='number'), className='ent')
             ], className='entrada'),
             html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $K_s$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Ks', value=14.35, type='number'), className='ent')
+                html.H4(dcc.Markdown('Digite o valor de $K_s$:',
+                        mathjax=True), className='texto_caixa'),
+                html.Div(dcc.Input(id='Ks', value=14.35,
+                         type='number'), className='ent')
             ], className='entrada'),
             html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $K_{is}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Kis', value=170.35, type='number'), className='ent')
+                html.H4(dcc.Markdown(
+                    'Digite o valor de $K_{is}$:', mathjax=True), className='texto_caixa'),
+                html.Div(dcc.Input(id='Kis', value=170.35,
+                         type='number'), className='ent')
             ], className='entrada'),
             html.Div([
-                html.H4(dcc.Markdown('Digite o valor de $Ce_{max}$:', mathjax=True), className='texto_caixa'),
-                html.Div(dcc.Input(id='Cemax', value=138.45, type='number'), className='ent')
+                html.H4(dcc.Markdown(
+                    'Digite o valor de $Ce_{max}$:', mathjax=True), className='texto_caixa'),
+                html.Div(dcc.Input(id='Cemax', value=138.45,
+                         type='number'), className='ent')
             ], className='entrada'),
         ], className='container2'),
         html.Div(
@@ -172,27 +119,21 @@ app.layout = html.Div(
 )
 
 
-
-
-
-
-
 ######################################################
 colors = {'background': 'white'}
 
 
-
 # Coeficiente de rendimento de substrato em celulas(gx/gs)
-#Yxs = 0.0419
+# Yxs = 0.0419
 # Coeficiente de rendimento de substrato em etanol(gp/gs)
-#Yes = 0.444
+# Yes = 0.444
 # Velocidade maxima especifica de crescimento celular (h-1)
-#Mimax = 0.157076483470194
+# Mimax = 0.157076483470194
 # Constante de saturaçao ou de meia velocidade (g/L)
-#Ks = 14.35
-#Kis = 170.35                      # Constante de inibicao pelo substrato (g/L)
+# Ks = 14.35
+# Kis = 170.35                      # Constante de inibicao pelo substrato (g/L)
 # Concentracao maxima de etanol responsavel por cessar o crescimento celular (g/L)
-#Cemax = 138.45
+# Cemax = 138.45
 
 # variáveis acima são parêmetros, colocar num box
 
@@ -228,6 +169,7 @@ def g(tab, tf, Cx0, Cs0, Cp0, V0, Yxs, Yes, Mimax, Ks, Kis, Cemax):
         return fig
     else:
         t = np.linspace(0, tf, 1000)
+
         def g(y, t):
             Cx, Cs, Ce, V = y
             Mih = (Mimax * Cs / (Ks + Cs + (Cs ** 2) / Kis)) * \
