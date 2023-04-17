@@ -38,7 +38,7 @@ app.layout = html.Div(
                               dcc.Markdown(formula4,  mathjax=True)
                           ], id='equa_dif'), label='Equações Diferenciais'),
                       dcc.Tab(html.Div(html.Figure(
-                          html.Img(src='fig1.png', alt= 'Esquema Batelada Alimentada',id='fig_batelada')), id='ajuste_fig'), label='Figura')
+                          html.Img(src='/images/fig1.png', alt='Esquema Batelada Alimentada', id='fig_batelada')), id='ajuste_fig'), label='Figura')
                   ])
                   ], className='container'),
         html.Div([
