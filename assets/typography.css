@@ -1,24 +1,24 @@
 body{
-    background-color: rgba(0, 0, 0, 0.774);
+    background-color: #809aeb;
     color: black;
+    font-family: 'Times New Roman', Times, serif;
 }
 
-div#cabeçalho{
-    font-family: 'Times New Roman', Times, serif;
+#cabeçalho{
     text-align: center;
     color: white;
 }
 
 .container{
-    background-color: #d3d3d3;
+    background-color: white;
     border-radius: 10px;
     margin: 10px;
     margin-bottom: 20px;
-    
+    justify-content: center;
 }
 
 .container2{
-    background-color: #d3d3d3;
+    background-color: white;
     margin: 10px;
     margin-top: 30px;
     display: flex;
@@ -27,19 +27,21 @@ div#cabeçalho{
 }
 
 h3#exercicio{
-    background-color: #a9a9a9;
+    background-color: #4169e1;
     margin-top: 0px;
-    border-radius: 12px;
-    padding: 2px;
+    border-radius: 9px;
+    padding: 10px;
+    color:white;
 }
 
 .entrada{
     width: 200px;
     height: 100px;
-    background-color: #a9a9a9;
+    background-color: #4169e1;
     border: 3px solid;
     border-radius: 10px;
     margin: 20px;
+    color: white;
 }
 
 
@@ -55,7 +57,7 @@ p{
 }
 
 div#figura{
-    background-color: #d3d3d3;
+    background-color: white;
     margin: 10px;
     margin-top: 30px;
     border-radius: 10px;
@@ -67,3 +69,33 @@ div#figura{
     text-align: center;
 }
 
+#formula_figura{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    padding: 20px;
+    margin:20px;
+    align-items: center;
+}
+
+#fig_batelada{
+    width: 600px;
+}
+
+#ajuste_fig{
+    /*margin-left: 200px;*/
+    width: 600px;
+    display:flex;
+    flex-wrap:wrap;
+}
+
+#equa_dif{
+    justify-content:center;
+    padding: 30px;
+    margin-left: 10px;
+}
+
+#resumo{
+    padding:20px;
+    margin:10px;
+}
