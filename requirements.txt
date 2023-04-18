@@ -3,3 +3,4 @@ pandas
 gunicorn
 numpy
 scipy
+imageio==2.6.0
