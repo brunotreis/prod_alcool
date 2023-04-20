@@ -9,9 +9,18 @@ app = Dash(__name__, title='Produção de Álcool')
 
 server = app.server
 
-texto = 'Este modelo prediz os valores de concentração de células' \
-        ', substrato, produto (etanol) e volume da dorna ao longo do tempo de processo conduzido' \
-        ' em modo batelada alimentada.'
+texto = 'Esse modelo prediz a concentração dos componentes ' \
+        'células, substrato e produto (g/L) no caldo da fermentação' \
+        ' alcoólica durante o tempo de processo (em horas).' \
+        ' Considerou-se a levedura Saccharomyces cerevisiae ' \
+        'como agente biológico produtor de etanol e sacarose ' \
+        'extraída da cana-de-açúcar como substrato (condição majoritariamente ' \
+        'empregada na indústria brasileira). As equações fundamentais (sistema de EDO) ' \
+        'foram desenvolvidas com base em hipóteses previamente adotadas para o ' \
+        'processo conduzido em modo batelada alimentada e utilizou-se o modelo ' \
+        'cinético hibrido de Andrews (1968) – Levenspiel (1980) que considera ' \
+        'inibição por substrato e produto para representar a velocidade ' \
+        'específica de crescimento celular ($\mu$).'
 
 formula1 = '$\\displaystyle  \\frac{dV}{dt}= F_e$'
 
@@ -20,6 +29,8 @@ formula2 = '$\\displaystyle  \\frac{dC_x}{dt}= C_x (\mu - \\frac{F_e}{V})$'
 formula3 = '$\\displaystyle  \\frac{dC_s}{dt}= \\frac{F_e}{V}(C_{sm}-C_s)- \\frac{\mu}{Y_{x/s}} C_x$'
 
 formula4 = '$\\displaystyle  \\frac{dC_e}{dt}= \\frac{Y_{e/s}}{Y_{x/s}} \mu C_x - \\frac{F_e}{V} C_e$'
+
+formula5= 'Onde $\\displaystyle \mu = \\frac{\mu_{max} C_{s}}{K_{s} + C_{s} + \\frac{C_{s}^2}{K_{is}}} \\left(1- \\frac{C_e}{C_{e_{max}}}\\right)^n$'
 
 
 app.layout = html.Div(
@@ -35,10 +46,12 @@ app.layout = html.Div(
                               dcc.Markdown(formula1,  mathjax=True),
                               dcc.Markdown(formula2,  mathjax=True),
                               dcc.Markdown(formula3,  mathjax=True),
-                              dcc.Markdown(formula4,  mathjax=True)
+                              dcc.Markdown(formula4,  mathjax=True),
+                              html.Br(), #pular uma linha
+                              dcc.Markdown(formula5,  mathjax=True)
                           ], id='equa_dif'), label='Equações Diferenciais'),
                       dcc.Tab(html.Div(html.Figure(
-                          html.Img(src='/assets/fig.png', alt='Esquema Batelada Alimentada', id='fig_batelada')), id='ajuste_fig'), label='Figura')
+                          html.Img(src='/assets/fig.png', alt='Esquema Batelada Alimentada', id='fig_batelada')), id='ajuste_fig'), label='Etapas do Processo')
                   ])
                   ], className='container'),
         html.Div([
