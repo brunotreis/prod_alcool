@@ -12,7 +12,7 @@ server = app.server
 texto = 'Esse modelo prediz a concentração dos componentes ' \
         'células, substrato e produto (g/L) no caldo da fermentação' \
         ' alcoólica durante o tempo de processo (em horas).' \
-        ' Considerou-se a levedura Saccharomyces cerevisiae ' \
+        ' Considerou-se a levedura ${\it Saccharomyces\ \ cerevisiae}$ ' \
         'como agente biológico produtor de etanol e sacarose ' \
         'extraída da cana-de-açúcar como substrato (condição majoritariamente ' \
         'empregada na indústria brasileira). As equações fundamentais (sistema de EDO) ' \
@@ -116,7 +116,7 @@ app.layout = html.Div(
             ], className='entrada'),
             html.Div([
                 html.H4(dcc.Markdown(
-                    'Digite o valor de $Ce_{max}$:', mathjax=True), className='texto_caixa'),
+                    'Digite o valor de $C_{e_{max}}$:', mathjax=True), className='texto_caixa'),
                 html.Div(dcc.Input(id='Cemax', value=138.45,
                          type='number'), className='ent')
             ], className='entrada'),
