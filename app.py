@@ -9,6 +9,7 @@ app = Dash(__name__, title='Produção de Álcool')
 
 server = app.server
 
+"""
 texto = 'Esse modelo prediz a concentração dos componentes ' \
         'células, substrato e produto (g/L) no caldo da fermentação' \
         ' alcoólica durante o tempo de processo (em horas).' \
@@ -21,6 +22,26 @@ texto = 'Esse modelo prediz a concentração dos componentes ' \
         'cinético hibrido de Andrews (1968) – Levenspiel (1980) que considera ' \
         'inibição por substrato e produto para representar a velocidade ' \
         'específica de crescimento celular ($\mu$).'
+"""
+
+texto= 'Este aplicativo fornece os perfis das concentrações de células' \
+       ', substrato e produto e variação do volume da fase líquida ao ' \
+       'longo do tempo em um processo fermentativo alcoólico de produção ' \
+       'de bioetanol. O processo é conduzido em batelada alimentada, modo ' \
+       'de operação empregado pela maioria das destilarias brasileiras, e ' \
+       'ocorre em duas etapas: Inicialmente, mosto contendo substrato é ' \
+       'alimentado à suspensão de células, denominada “pé-de-cuba”, até o ' \
+       'alcance do volume útil do fermentador. Em seguida, o processo continua' \
+       ' em modo batelada até que o substrato seja completamente consumido.'\
+        'O modelo utilizado, apresentado na aba Equações Diferenciais, ' \
+       'é constituído por um sistema de quatro equações diferenciais ordinárias, ' \
+       'resultantes dos balanços de massa para os componentes células, ' \
+       'substrato e produto e balanço de massa total. O modelo cinético ' \
+       'híbrido de Andrews-Levenspiel, que considera inibição por substrato ' \
+       'e produto, foi utilizado para representar a velocidade específica de crescimento celular ($\mu$).'
+
+
+
 
 formula1 = '$\\displaystyle  \\frac{dV}{dt}= F_e$'
 
@@ -116,6 +137,12 @@ app.layout = html.Div(
             ], className='entrada'),
             html.Div([
                 html.H4(dcc.Markdown(
+                    'Digite o valor de $n$:', mathjax=True), className='texto_caixa'),
+                html.Div(dcc.Input(id='nc', value=1.007717,
+                         type='number'), className='ent')
+            ], className='entrada'),
+            html.Div([
+                html.H4(dcc.Markdown(
                     'Digite o valor de $C_{e_{max}}$:', mathjax=True), className='texto_caixa'),
                 html.Div(dcc.Input(id='Cemax', value=138.45,
                          type='number'), className='ent')
@@ -150,7 +177,7 @@ colors = {'background': 'white'}
 
 # variáveis acima são parêmetros, colocar num box
 
-nc = 1.007717                        # Adimensional
+#nc = 1.007717                        # Adimensional
 # Tempo de alimentaão  (h)(tempo de alimentação).
 tE = 12.8440367
 # Concentração de substrato no mosto (g/L)
@@ -174,10 +201,11 @@ F = (VD-V0)/tE
     Input(component_id='Mimax', component_property='value'),
     Input(component_id='Ks', component_property='value'),
     Input(component_id='Kis', component_property='value'),
+    Input(component_id='nc', component_property='value'),
     Input(component_id='Cemax', component_property='value')
 )
-def g(tab, tf, Cx0, Cs0, Cp0, V0, Yxs, Yes, Mimax, Ks, Kis, Cemax):
-    if (tf == None) or (Cx0 == None) or (Cs0 == None) or (Cp0 == None) or (V0 == None) or (Yxs == None) or (Yes == None) or (Mimax == None) or (Ks == None) or (Kis == None) or (Cemax == None):
+def g(tab, tf, Cx0, Cs0, Cp0, V0, Yxs, Yes, Mimax, Ks, Kis,nc, Cemax):
+    if (tf == None) or (Cx0 == None) or (Cs0 == None) or (Cp0 == None) or (V0 == None) or (Yxs == None) or (Yes == None) or (Mimax == None) or (Ks == None) or (Kis == None) or (Cemax == None) or (nc == None):
         fig = px.line()
         return fig
     else:
