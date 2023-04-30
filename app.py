@@ -183,8 +183,8 @@ tE = 12.8440367
 # Concentração de substrato no mosto (g/L)
 Csm = 436.285714
 VD = 2.0                                       # volume útil do biorreator (L)
-V0 = 0.6
-F = (VD-V0)/tE
+#V0 = 0.6
+#F = (VD-V0)/tE
 
 
 # colocar todo o callback dentro do if tab1
@@ -210,6 +210,7 @@ def g(tab, tf, Cx0, Cs0, Cp0, V0, Yxs, Yes, Mimax, Ks, Kis,nc, Cemax):
         return fig
     else:
         t = np.linspace(0, tf, 1000)
+        F = (VD - V0) / tE
 
         def g(y, t):
             Cx, Cs, Ce, V = y
