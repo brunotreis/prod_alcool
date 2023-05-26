@@ -4,8 +4,12 @@ import numpy as np
 from scipy.integrate import odeint
 import plotly.express as px
 from dash.dependencies import Input, Output
+import dash_renderer
+
 
 app = Dash(__name__, title='Produção de Álcool')
+
+
 
 server = app.server
 
@@ -230,14 +234,14 @@ def g(tab, tf, Cx0, Cs0, Cp0, V0, Yxs, Yes, Mimax, Ks, Kis,nc, Cemax):
         y0 = [Cx0, Cs0, Cp0, V0]  # Vetor Condicoes Iniciais
         sol = odeint(g, y0, t)
         df = pd.DataFrame()
-        df['tempo'] = pd.DataFrame(t)
-        df['Concentração de células'] = pd.DataFrame(sol[:, 0])
-        df['Concentração de substrato'] = pd.DataFrame(sol[:, 1])
-        df['Concentração de Produto'] = pd.DataFrame(sol[:, 2])
-        df['Volume'] = pd.DataFrame(sol[:, 3])
+        df['tempo (h)'] = pd.DataFrame(t)
+        df['Concentração de células (g/L)'] = pd.DataFrame(sol[:, 0])
+        df['Concentração de substrato (g/L)'] = pd.DataFrame(sol[:, 1])
+        df['Concentração de Produto (g/L)'] = pd.DataFrame(sol[:, 2])
+        df['Volume (L)'] = pd.DataFrame(sol[:, 3])
         if tab == 'tab-1':
-            fig = px.line(df, x=df['tempo'],
-                          y=[df['Concentração de células'], df['Concentração de substrato'], df['Concentração de Produto']], title='Batelada Alimentada')
+            fig = px.line(df, x=df['tempo (h)'],
+                          y=[df['Concentração de células (g/L)'], df['Concentração de substrato (g/L)'], df['Concentração de Produto (g/L)']], title='Batelada Alimentada')
             fig.update_layout(
                 plot_bgcolor=colors['background'],
                 paper_bgcolor=colors['background']
@@ -245,7 +249,7 @@ def g(tab, tf, Cx0, Cs0, Cp0, V0, Yxs, Yes, Mimax, Ks, Kis,nc, Cemax):
             return fig
         if tab == 'tab-2':
             fig = px.line(
-                df, x=df['tempo'], y=df['Concentração de células'], title='Concentração de Células')
+                df, x=df['tempo (h)'], y=df['Concentração de células (g/L)'], title='Concentração de Células')
             fig.update_layout(
                 plot_bgcolor=colors['background'],
                 paper_bgcolor=colors['background'],
@@ -253,7 +257,7 @@ def g(tab, tf, Cx0, Cs0, Cp0, V0, Yxs, Yes, Mimax, Ks, Kis,nc, Cemax):
             return fig
         if tab == 'tab-3':
             fig = px.line(
-                df, x=df['tempo'], y=df['Concentração de substrato'], title='Concentração de Substrato')
+                df, x=df['tempo (h)'], y=df['Concentração de substrato (g/L)'], title='Concentração de Substrato')
             fig.update_layout(
                 plot_bgcolor=colors['background'],
                 paper_bgcolor=colors['background'],
@@ -261,19 +265,20 @@ def g(tab, tf, Cx0, Cs0, Cp0, V0, Yxs, Yes, Mimax, Ks, Kis,nc, Cemax):
             return fig
         if tab == 'tab-4':
             fig = px.line(
-                df, x=df['tempo'], y=df['Concentração de Produto'], title='Concentração de Produto')
+                df, x=df['tempo (h)'], y=df['Concentração de Produto (g/L)'], title='Concentração de Produto')
             fig.update_layout(
                 plot_bgcolor=colors['background'],
                 paper_bgcolor=colors['background'],
             )
             return fig
         if tab == 'tab-5':
-            fig = px.line(df, x=df['tempo'], y=df['Volume'], title='Volume')
+            fig = px.line(df, x=df['tempo (h)'], y=df['Volume (L)'], title='Volume')
             fig.update_layout(
                 plot_bgcolor=colors['background'],
                 paper_bgcolor=colors['background'],
             )
             return fig
+
 
 
 if __name__ == '__main__':
