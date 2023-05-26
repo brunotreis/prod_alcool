@@ -4,7 +4,7 @@ import numpy as np
 from scipy.integrate import odeint
 import plotly.express as px
 from dash.dependencies import Input, Output
-import dash_renderer
+
 
 
 app = Dash(__name__, title='Produção de Álcool')
